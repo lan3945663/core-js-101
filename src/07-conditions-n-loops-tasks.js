@@ -27,8 +27,18 @@
  *  21 => 'Fizz'
  *
  */
-function getFizzBuzz(/* num */) {
-  throw new Error('Not implemented');
+function getFizzBuzz(num) {
+  const isRem5 = num % 5 === 0;
+  const isRem3 = num % 3 === 0;
+  let res = num;
+
+  if (isRem3) res = 'Fizz';
+
+  if (isRem5) res = 'Buzz';
+
+  if (isRem3 && isRem5) res = 'FizzBuzz';
+
+  return res;
 }
 
 
@@ -43,8 +53,12 @@ function getFizzBuzz(/* num */) {
  *   5  => 120
  *   10 => 3628800
  */
-function getFactorial(/* n */) {
-  throw new Error('Not implemented');
+function getFactorial(n) {
+  if (n === 1) {
+    return n;
+  }
+
+  return n * getFactorial(n - 1);
 }
 
 
@@ -60,8 +74,14 @@ function getFactorial(/* n */) {
  *   5,10  =>  45 ( = 5+6+7+8+9+10 )
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
-function getSumBetweenNumbers(/* n1, n2 */) {
-  throw new Error('Not implemented');
+function getSumBetweenNumbers(n1, n2) {
+  let sum = 0;
+
+  for (let i = n1; i <= n2; i += 1) {
+    sum += i;
+  }
+
+  return sum;
 }
 
 
@@ -80,8 +100,16 @@ function getSumBetweenNumbers(/* n1, n2 */) {
  *   10,1,1   =>  false
  *   10,10,10 =>  true
  */
-function isTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isTriangle(a, b, c) {
+  const conditionEdge1 = a + b > c;
+  const conditionEdge2 = a + c > b;
+  const conditionEdge3 = b + c > a;
+
+  if (conditionEdge1 && conditionEdge2 && conditionEdge3) {
+    return true;
+  }
+
+  return false;
 }
 
 
@@ -117,8 +145,15 @@ function isTriangle(/* a, b, c */) {
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
  *
  */
-function doRectanglesOverlap(/* rect1, rect2 */) {
-  throw new Error('Not implemented');
+function doRectanglesOverlap(rect1, rect2) {
+  const condition1 = rect1.top + rect1.height < rect2.top;
+  const condition2 = rect1.left + rect1.width < rect2.left;
+
+  if (condition1 || condition2) {
+    return false;
+  }
+
+  return true;
 }
 
 
