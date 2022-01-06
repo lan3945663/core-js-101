@@ -416,8 +416,9 @@ function isBracketsBalanced(/* str */) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+function toNaryString(num, n) {
+  // TODO: do without built-in functions
+  return num.toString(n);
 }
 
 
@@ -433,26 +434,30 @@ function toNaryString(/* num, n */) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/verbalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  // const path = {};
+function getCommonDirectoryPath(pathes) {
+  const path = {};
 
-  // pathes.forEach((el) => {
-  //   const t = el.split('/');
-  //   t.forEach((chunk) => {
-  //     if (path[chunk]) {
-  //       path[chunk] += 1;
-  //     } else {
-  //       path[chunk] = 1;
-  //     }
-  //   });
-  // });
+  pathes.forEach((el) => {
+    const t = el.split('/');
+    t.forEach((chunk) => {
+      if (path[chunk]) {
+        path[chunk] += 1;
+      } else {
+        path[chunk] = 1;
+      }
+    });
+  });
 
-  // const common = Object.keys(path)
-  //   .filter((el) => path[el] === pathes.length)
-  //   .join('/');
+  const common = Object.keys(path).filter((el) => path[el] === pathes.length);
 
-  // console.log(common);
-  // return `${common}/`;
+  // TODO: avoid so many conditions
+  if (common.length === 0) return '';
+
+  if (common[0] === '' && common.length === 1) return '/';
+
+  if (common[0] === '') return `${common.join('/')}/`;
+
+  return `/${common.join('/')}/`;
 }
 
 
