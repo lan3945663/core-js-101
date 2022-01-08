@@ -145,8 +145,10 @@ function getStringsLength(arr) {
  *    [ 1, 3, 4, 5 ], 2, 1  => [ 1, 2, 3, 4, 5 ]
  *    [ 1, 'b', 'c'], 0, 'x'  => [ 'x', 1, 'b', 'c' ]
  */
-function insertItem(/* arr, item, index */) {
-  throw new Error('Not implemented');
+function insertItem(arr, item, index) {
+  arr.splice(index, 0, item);
+
+  return arr;
 }
 
 /**
@@ -416,8 +418,31 @@ function toStringList(arr) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  *    ]
  */
-function sortCitiesArray(/* arr */) {
-  throw new Error('Not implemented');
+function sortCitiesArray(arr) {
+  return arr
+    .sort((a, b) => {
+      if (a.country < b.country) {
+        return -1;
+      }
+
+      if (a.country > b.country) {
+        return 1;
+      }
+
+      if (a.country === b.country) {
+        if (a.city < b.city) {
+          return -1;
+        }
+
+        if (a.city > b.city) {
+          return 1;
+        }
+
+        return 0;
+      }
+
+      return 0;
+    });
 }
 
 /**

@@ -203,8 +203,36 @@ function extractEmails(str) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  // TODO: add genearte function
+
+  const aArr = new Array(width).fill('─');
+  aArr.splice(0, 1, '\u250c');
+  aArr.splice(-1, 1, '\u2510');
+
+  const aTop = `${aArr.join('')}\n`;
+
+  const aArr1 = new Array(width).fill('─');
+  aArr1.splice(0, 1, '\u2514');
+  aArr1.splice(-1, 1, '\u2518');
+
+  const aTop1 = `${aArr1.join('')}\n`;
+
+  const bArr = new Array(width).fill(' ');
+  bArr.splice(0, 1, '\u2502');
+  bArr.splice(-1, 1, '\u2502');
+  const b = `${bArr.join('')}\n`;
+
+  let res = '';
+  res += aTop;
+
+  for (let i = 0; i < height - 2; i += 1) {
+    res += b;
+  }
+
+  res += aTop1;
+
+  return res;
 }
 
 
@@ -241,8 +269,9 @@ function encodeToRot13(/* str */) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+function isString(value) {
+  // instanceof проверяет, принадлежит ли ОБЪЕКТ к определённому классу
+  return typeof value === 'string' || value instanceof String;
 }
 
 
@@ -270,8 +299,37 @@ function isString(/* value */) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const SUIT_SIZE = 13;
+
+  const suits = {
+    '\u2663': 0,
+    '\u2666': 1,
+    '\u2665': 2,
+    '\u2660': 3,
+
+  };
+
+  const cards = {
+    A: 0,
+    2: 1,
+    3: 2,
+    4: 3,
+    5: 4,
+    6: 5,
+    7: 6,
+    8: 7,
+    9: 8,
+    10: 9,
+    J: 10,
+    Q: 11,
+    K: 12,
+  };
+
+  const card = value.slice(0, -1);
+  const suit = value.slice(-1);
+
+  return SUIT_SIZE * suits[suit] + cards[card];
 }
 
 
