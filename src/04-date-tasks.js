@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 /* *******************************************************************************************
  *                                                                                           *
  * Please read the following tutorial before implementing tasks:                              *
@@ -84,8 +85,22 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,10,0,0,250)     => "00:00:00.250"
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
-function timeSpanToString(/* startDate, endDate */) {
-  throw new Error('Not implemented');
+function timeSpanToString(startDate, endDate) {
+  const sms = startDate.getTime();
+  const ems = endDate.getTime();
+
+  const dif = ems - sms;
+
+  const hoursRest = dif % (1000 * 60 * 60);
+  const hours = (dif - hoursRest) / (1000 * 60 * 60);
+
+  const minRest = hoursRest % (1000 * 60);
+  const min = (hoursRest - minRest) / (1000 * 60);
+
+  const sRest = minRest % (1000);
+  const s = (minRest - sRest) / (1000);
+
+  return `${String(hours).padStart(2, '0')}:${String(min).padStart(2, '0')}:${String(s).padStart(2, '0')}.${String(sRest).padStart(3, '0')}`;
 }
 
 

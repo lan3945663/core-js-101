@@ -179,8 +179,9 @@ function getHead(arr, n) {
  *    [ 1, 3, 4, 5 ], 2  => [ 4, 5 ]
  *    [ 'a', 'b', 'c', 'd'], 3  => [ 'b', 'c', 'd' ]
  */
-function getTail(/* arr, n */) {
-  throw new Error('Not implemented');
+function getTail(arr, n) {
+  const rem = arr.splice(-n);
+  return rem;
 }
 
 
@@ -238,8 +239,18 @@ function toArrayOfSquares(arr) {
  *   [ 0, 0, 0, 0, 0]         => [ 0, 0, 0, 0, 0]
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
-function getMovingSum(/* arr */) {
-  throw new Error('Not implemented');
+function getMovingSum(arr) {
+  // const cumulativeSum = (sum => value => sum += value)(0);
+  // console.log([5, 10, 3, 2].map(cumulativeSum));
+
+  let sum = 0;
+
+  const x = arr.map((el) => {
+    sum += el;
+    return sum;
+  });
+
+  return x;
 }
 
 /**
