@@ -213,8 +213,7 @@ function toCsvText(arr) {
       }
       return `${el.join()}\n`;
     })
-    .reverse()
-    .reduce((el, acc) => {
+    .reduce((acc, el) => {
       let localAcc = acc;
       localAcc += el;
 
@@ -299,11 +298,10 @@ function getSecondItems(arr) {
 function propagateItemsByPositionIndex(arr) {
   return arr
     .map((el, i) => [...new Array(i + 1).fill(el)])
-    .reduce((el, acc) => {
+    .reduce((acc, el) => {
       acc.push(...el);
       return acc;
-    }, [])
-    .reverse();
+    }, []);
 }
 
 
@@ -515,8 +513,15 @@ function sortCitiesArray(arr) {
  *           [0,0,0,1,0],
  *           [0,0,0,0,1]]
  */
-function getIdentityMatrix(/* n */) {
-  throw new Error('Not implemented');
+function getIdentityMatrix(n) {
+  const mas = new Array(n).fill('0');
+
+  return mas
+    .map((/* el, i */) => new Array(n).fill('0'))
+    .map((el, i) => {
+      el.splice(i, 1, '1');
+      return el;
+    });
 }
 
 /**
@@ -532,8 +537,10 @@ function getIdentityMatrix(/* n */) {
  *     0, 100 => [ 0, 1, 2, ..., 100 ]
  *     3, 3   => [ 3 ]
  */
-function getIntervalArray(/* start, end */) {
-  throw new Error('Not implemented');
+function getIntervalArray(start, end) {
+  return new Array(end - start + 1)
+    .fill(1)
+    .map((_, i) => start + i);
 }
 
 /**
@@ -618,8 +625,11 @@ function selectMany(/* arr, childrenSelector */) {
  *   ['one','two','three'], [2]       => 'three'  (arr[2])
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
-function getElementByIndexes(/* arr, indexes */) {
-  throw new Error('Not implemented');
+function getElementByIndexes(arr, indexes) {
+  return indexes.reduce((acc, el) => {
+    const a = acc[el];
+    return a;
+  }, arr);
 }
 
 
@@ -641,8 +651,19 @@ function getElementByIndexes(/* arr, indexes */) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8 ]   =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  let middle;
+  if (arr.length % 2 === 0) {
+    middle = arr.length / 2;
+    const rem = arr.splice(0, middle);
+
+    return arr.concat(rem);
+  }
+  middle = Math.round(arr.length / 2);
+  const rem = arr.splice(0, middle - 1);
+  const rem1 = arr.splice(-1 * (middle - 1));
+
+  return rem1.concat(arr, rem);
 }
 
 

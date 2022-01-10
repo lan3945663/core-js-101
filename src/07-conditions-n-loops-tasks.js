@@ -566,8 +566,25 @@ function getMatrixProduct(m1, m2) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  const O = '000';
+  const X = 'XXX';
+  const variants = [];
+
+  position.forEach((el) => {
+    variants.push(el.join(''));
+  });
+
+  // TODO: add helper func
+  variants.push(position.map((el) => el[0]).join(''));
+  variants.push(position.map((el) => el[1]).join(''));
+  variants.push(position.map((el) => el[2]).join(''));
+  variants.push(position.map((_, i) => position[i][i]).join(''));
+  variants.push(position.map((_, i) => position[i][position[i].length - 1 - i]).join(''));
+
+  if (variants.includes(O)) return '0';
+  if (variants.includes(X)) return 'X';
+  return undefined;
 }
 
 
