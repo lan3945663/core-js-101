@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+/* eslint-disable class-methods-use-this */
 /* ************************************************************************************************
  *                                                                                                *
  * Please read the following tutorial before implementing tasks:                                   *
@@ -122,14 +124,29 @@ class CssSelectorBuilder {
     this.sclass = '';
     this.sattr = '';
     this.spseudoClass = '';
+    this.spseudoElement = '';
+
+    this.scombied = '';
+  }
+
+  validate() {
+    throw new Error(
+      'Element, id and pseudo-element should not occur more then one time inside the selector',
+    );
   }
 
   element(value) {
+    if (this.sel !== '') {
+      this.validate();
+    }
     this.sel = value;
     return this;
   }
 
   id(value) {
+    if (this.sid !== '') {
+      this.validate();
+    }
     this.sid = `#${value}`;
     return this;
   }
@@ -145,49 +162,56 @@ class CssSelectorBuilder {
   }
 
   pseudoClass(value) {
-    this.spseudoClass = `:${value}`;
+    this.spseudoClass = `${this.spseudoClass}:${value}`;
+    return this;
+  }
+
+  pseudoElement(value) {
+    if (this.spseudoElement !== '') {
+      this.validate();
+    }
+    this.spseudoElement = `::${value}`;
+    return this;
+  }
+
+  combine(selector1, combinator, selector2) {
+    this.scombied = `${selector1.stringify()} ${combinator} ${selector2.stringify()}`;
     return this;
   }
 
   stringify() {
-    console.log(`${this.sel}${this.sid}${this.sclass}${this.sattr}`);
-    return `${this.sel}${this.sid}${this.sclass}${this.sattr}${this.spseudoClass}`;
+    console.log(`${this.sel}${this.sid}${this.sclass}${this.sattr}${this.spseudoClass}${this.spseudoElement}${this.scombied}`);
+    return `${this.sel}${this.sid}${this.sclass}${this.sattr}${this.spseudoClass}${this.spseudoElement}${this.scombied}`;
   }
 }
 
 const cssSelectorBuilder = {
   element(value) {
-    const x = new CssSelectorBuilder();
-    return x.element(value);
+    return new CssSelectorBuilder().element(value);
   },
 
   id(value) {
-    const x = new CssSelectorBuilder();
-    return x.id(value);
-    // console.log(value);
+    return new CssSelectorBuilder().id(value);
   },
 
   class(value) {
-    const x = new CssSelectorBuilder();
-    return x.class(value);
+    return new CssSelectorBuilder().class(value);
   },
 
   attr(value) {
-    const x = new CssSelectorBuilder();
-    return x.attr(value);
+    return new CssSelectorBuilder().attr(value);
   },
 
   pseudoClass(value) {
-    const x = new CssSelectorBuilder();
-    return x.pseudoClass(value);
+    return new CssSelectorBuilder().pseudoClass(value);
   },
 
   pseudoElement(value) {
-    console.log(value);
+    return new CssSelectorBuilder().pseudoElement(value);
   },
 
   combine(selector1, combinator, selector2) {
-    console.log(selector1, combinator, selector2);
+    return new CssSelectorBuilder().combine(selector1, combinator, selector2);
   },
 };
 
