@@ -115,33 +115,79 @@ function fromJSON(proto, json) {
  *  For more examples see unit tests.
  */
 
+class CssSelectorBuilder {
+  constructor() {
+    this.sel = '';
+    this.sid = '';
+    this.sclass = '';
+    this.sattr = '';
+    this.spseudoClass = '';
+  }
+
+  element(value) {
+    this.sel = value;
+    return this;
+  }
+
+  id(value) {
+    this.sid = `#${value}`;
+    return this;
+  }
+
+  class(value) {
+    this.sclass = `${this.sclass}.${value}`;
+    return this;
+  }
+
+  attr(value) {
+    this.sattr = `[${value}]`;
+    return this;
+  }
+
+  pseudoClass(value) {
+    this.spseudoClass = `:${value}`;
+    return this;
+  }
+
+  stringify() {
+    console.log(`${this.sel}${this.sid}${this.sclass}${this.sattr}`);
+    return `${this.sel}${this.sid}${this.sclass}${this.sattr}${this.spseudoClass}`;
+  }
+}
+
 const cssSelectorBuilder = {
-  element(/* value */) {
-    throw new Error('Not implemented');
+  element(value) {
+    const x = new CssSelectorBuilder();
+    return x.element(value);
   },
 
-  id(/* value */) {
-    throw new Error('Not implemented');
+  id(value) {
+    const x = new CssSelectorBuilder();
+    return x.id(value);
+    // console.log(value);
   },
 
-  class(/* value */) {
-    throw new Error('Not implemented');
+  class(value) {
+    const x = new CssSelectorBuilder();
+    return x.class(value);
   },
 
-  attr(/* value */) {
-    throw new Error('Not implemented');
+  attr(value) {
+    const x = new CssSelectorBuilder();
+    return x.attr(value);
   },
 
-  pseudoClass(/* value */) {
-    throw new Error('Not implemented');
+  pseudoClass(value) {
+    const x = new CssSelectorBuilder();
+    return x.pseudoClass(value);
   },
 
-  pseudoElement(/* value */) {
-    throw new Error('Not implemented');
+  pseudoElement(value) {
+    console.log(value);
   },
 
-  combine(/* selector1, combinator, selector2 */) {
-    throw new Error('Not implemented');
+  combine(selector1, combinator, selector2) {
+    console.log(selector1, combinator, selector2);
   },
 };
 
