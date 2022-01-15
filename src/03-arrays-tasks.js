@@ -590,8 +590,21 @@ function distinct(arr) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  const result = new Map();
+
+  const map = array.reduce((acc, cur) => {
+    acc[keySelector(cur)] = acc[keySelector(cur)] || [];
+    acc[keySelector(cur)].push(valueSelector(cur));
+
+    return acc;
+  }, {});
+
+  return Object.keys(map)
+    .reduce((acc, el) => {
+      acc.set(el, map[el]);
+      return acc;
+    }, result);
 }
 
 
@@ -608,8 +621,8 @@ function group(/* array, keySelector, valueSelector */) {
  *   [[1, 2], [3, 4], [5, 6]], (x) => x     =>   [ 1, 2, 3, 4, 5, 6 ]
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
-function selectMany(/* arr, childrenSelector */) {
-  throw new Error('Not implemented');
+function selectMany(arr, childrenSelector) {
+  return arr.map(childrenSelector).flat();
 }
 
 

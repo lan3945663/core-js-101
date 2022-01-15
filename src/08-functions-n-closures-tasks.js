@@ -146,8 +146,19 @@ function retry(func, attempts) {
  * cos(3.141592653589793) ends
  *
  */
-function logger(/* func, logFunc */) {
-  throw new Error('Not implemented');
+function logger(func, logFunc) {
+  return function (...args) {
+    const { name } = func;
+    const param = JSON.stringify(args).replace('[', '').slice(0, -1);
+
+    logFunc(`${name}(${param}) starts`);
+
+    const res = func(...args);
+
+    logFunc(`${name}(${param}) ends`);
+
+    return res;
+  };
 }
 
 
@@ -164,8 +175,11 @@ function logger(/* func, logFunc */) {
  *   partialUsingArguments(fn, 'a','b','c')('d') => 'abcd'
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
-function partialUsingArguments(/* fn, ...args1 */) {
-  throw new Error('Not implemented');
+function partialUsingArguments(fn, ...args1) {
+  // Частичное применение - это применение к функции
+  // некоторых аргументов и возврат новой функции,
+  // в ожидании остальных аргументов.
+  return (...args) => fn(...args1, ...args);
 }
 
 
