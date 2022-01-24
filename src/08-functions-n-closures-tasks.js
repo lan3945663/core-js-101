@@ -67,7 +67,7 @@ function getPowerFunction(exponent) {
  *   getPolynom()      => null
  */
 function getPolynom(...args) {
-  return function (x) {
+  return (x) => {
     let expression = 0;
 
     Array.from(args).forEach((el, i, arr) => {
@@ -97,9 +97,7 @@ function getPolynom(...args) {
 function memoize(func) {
   const memo = func();
 
-  return function () {
-    return memo;
-  };
+  return () => memo;
 }
 
 
@@ -156,7 +154,7 @@ function retry(func, attempts) {
  *
  */
 function logger(func, logFunc) {
-  return function (...args) {
+  return function log(...args) {
     const { name } = func;
     const param = JSON.stringify(args).replace('[', '').slice(0, -1);
 
